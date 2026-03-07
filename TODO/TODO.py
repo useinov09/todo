@@ -75,9 +75,6 @@ def show_tasks(tasks_list, limit=None, filter=None):
     for task in tasks_list:
         status = "✓" if task['accomplishment'] else "✗"
 
-        if task['accomplishment']:
-            count_completed_tasks += 1
-
         # Фильтрация
         if filter == 'done' and not task['accomplishment']:
             continue
@@ -88,11 +85,16 @@ def show_tasks(tasks_list, limit=None, filter=None):
         if filter is None and task['hidden']:
             continue
 
+        if task['accomplishment']:
+            count_completed_tasks += 1
+
         print(f"{task['number']:>3}. {task['name']:<25} [{status}]")
         count += 1
 
         if limit is not None and count >= limit:
             break
+
+    total_completed = sum(1 for task in tasks_list if task['accomplishment'])
 
     if filter == 'done' and count_completed_tasks == 0:
         print("No completed tasks!")
@@ -103,7 +105,8 @@ def show_tasks(tasks_list, limit=None, filter=None):
     if filter is None and len(tasks_list) > count:
         print(f"{'':2}...")
 
-    print(f"\n ► Total: {count_completed_tasks}/{len(tasks_list)} completed")
+
+    print(f"\n ► Total: {total_completed}/{len(tasks_list)} completed")
 
 def delete_task(tasks_list):
     """Удаление задач и сохранение в json"""
