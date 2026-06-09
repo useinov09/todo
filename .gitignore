@@ -1,0 +1,14 @@
+ Virtual environment
+.venv/
+
+# Personal notes
+Comments.txt
+Plan.md
+
+
+# PyCharm
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
