@@ -2,8 +2,9 @@
 .venv/
 
 # Personal notes
-Comments.txt
-Plan.md
+records
+records/Comments.txt
+records/Plan.md
 
 # Sistem
 .DS_Store
