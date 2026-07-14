@@ -1,4 +1,5 @@
 from task import Task
+from task import priority_order
 from storage import Storage
 
 class TaskManager:
@@ -9,10 +10,10 @@ class TaskManager:
         self.storage = Storage(filename)
         self.tasks = self.storage.load()
 
-    def add_task(self, title, done=False):
+    def add_task(self, title, priority='medium', done=False):
         """Add a task to the tasks list"""
         task_id = self._get_next_id()
-        new_task = Task(task_id, title, done)
+        new_task = Task(task_id, title, priority=priority, done=done)
         self.tasks.append(new_task)
         self.storage.save(self.tasks)
         return new_task
@@ -81,3 +82,8 @@ class TaskManager:
             return [task for task in self.tasks if not task.done]
 
         return self.tasks
+
+    @staticmethod
+    def sort_by_priority(tsk):
+        """Sort tasks by priority"""
+        return sorted(tsk, key=lambda task: priority_order[task.priority], reverse=True)

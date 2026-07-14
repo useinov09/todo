@@ -49,7 +49,15 @@ while True:
                     "\nPlease enter a number: ")
 
         if request == 1:
-            manager.add_task(input("\nWhat would you like to add?: "))
+            name_new_task = input("\nWhat would you like to add?: ")
+            sorted_choice = input("Enter the priority (high/medium/low): ")
+
+            sorted_map = {'high': 3, 'medium': 2, 'low': 1}
+            if sorted_choice in sorted_map:
+                manager.add_task(name_new_task, sorted_choice)
+                print("\nTask added!")
+            else:
+                print("Sorry, the priority you entered is invalid.")
         elif request == 2:
              number = manager.mark_done(input_number("\nWhat would you like to mark done?: "))
              if number:
@@ -60,7 +68,8 @@ while True:
             filter_choice = input_number("Filter:\n1. All\n2. Done\n3. Undone\n: ")
             filter_map = {1: None, 2: 'done', 3: 'undone'}
             if filter_choice in filter_map:
-                show_tasks(manager.get_tasks(filter_map[filter_choice]))
+                tsk = manager.get_tasks(filter_map[filter_choice])
+                show_tasks(manager.sort_by_priority(tsk))
             else:
                 print("Invalid filter!")
         elif request == 4:
